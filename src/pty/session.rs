@@ -60,7 +60,7 @@ pub fn run_session(
         pixel_height: 0,
     })?;
 
-    let cmd = if let Some(custom) = custom_command {
+    let mut cmd = if let Some(custom) = custom_command {
         #[cfg(windows)]
         {
             let mut c = CommandBuilder::new("cmd.exe");
@@ -79,6 +79,10 @@ pub fn run_session(
         c.args(args);
         c
     };
+
+    if let Ok(cur_dir) = std::env::current_dir() {
+        cmd.cwd(cur_dir);
+    }
 
     let mut child = pair.slave.spawn_command(cmd)?;
     // Slave handle must be dropped in the parent so EOF is triggered when child exits

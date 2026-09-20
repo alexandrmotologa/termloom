@@ -1,7 +1,7 @@
 # TermLoom
 
 <p align="center">
-  <img src="assets/termloom_logo.svg" alt="TermLoom Logo" width="180" height="180" />
+  <img src="assets/termloom_logo.png" alt="TermLoom Logo" width="140" style="border-radius: 28px;" />
 </p>
 
 <p align="center">
@@ -17,7 +17,7 @@
 </p>
 
 <p align="center">
-  <img src="assets/termloom_demo.svg" alt="TermLoom Animated Demo" width="880" />
+  <img src="assets/termloom_demo.gif" alt="TermLoom Animated Demo" width="880" style="border-radius: 12px;" />
 </p>
 
 ---
@@ -117,6 +117,10 @@ Or pass a target filename ending in `.html`:
 termloom record demo.html
 ```
 
+<p align="center">
+  <img src="assets/termloom_player.png" alt="TermLoom Interactive HTML Player" width="880" style="border-radius: 10px;" />
+</p>
+
 ### Recording to Asciinema v2 format
 
 ```bash
@@ -164,6 +168,10 @@ Capture instant, high-resolution vector screenshots of command output:
 ```bash
 termloom snapshot -c "git status" git_status.svg
 ```
+
+<p align="center">
+  <img src="assets/termloom_snapshot.png" alt="TermLoom High-Resolution Terminal Snapshot" width="880" style="border-radius: 10px;" />
+</p>
 
 ### Secret redaction and security masking
 

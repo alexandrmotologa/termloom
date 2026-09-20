@@ -1,4 +1,9 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
+const fs = require('fs');
+const path = require('path');
+const { Resvg } = require('B:/workgit/parquet-lens/node_modules/@resvg/resvg-js');
+
+function buildLogoSvg() {
+  return `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" width="1024" height="1024">
   <defs>
     <clipPath id="squircle-clip">
       <rect x="24" y="24" width="976" height="976" rx="220" />
@@ -229,4 +234,39 @@
 
     </g>
   </g>
-</svg>
+</svg>`;
+}
+
+function run() {
+  const svg = buildLogoSvg();
+  const assetsDir = path.join(__dirname, '..', 'assets');
+  const docsDir = path.join(__dirname, '..', 'docs', 'images');
+
+  fs.mkdirSync(assetsDir, { recursive: true });
+  fs.mkdirSync(docsDir, { recursive: true });
+
+  const svgAssetPath = path.join(assetsDir, 'termloom_logo.svg');
+  const pngAssetPath = path.join(assetsDir, 'termloom_logo.png');
+  const svgDocsPath = path.join(docsDir, 'logo.svg');
+  const pngDocsPath = path.join(docsDir, 'logo.png');
+
+  fs.writeFileSync(svgAssetPath, svg, 'utf8');
+  fs.writeFileSync(svgDocsPath, svg, 'utf8');
+
+  const resvg = new Resvg(svg, {
+    fitTo: { mode: 'width', value: 1024 },
+    font: { loadSystemFonts: false }
+  });
+  const pngData = resvg.render().asPng();
+
+  fs.writeFileSync(pngAssetPath, pngData);
+  fs.writeFileSync(pngDocsPath, pngData);
+
+  console.log('✓ Successfully rendered TermLoom brand logos:');
+  console.log('  -', svgAssetPath);
+  console.log('  -', pngAssetPath);
+  console.log('  -', svgDocsPath);
+  console.log('  -', pngDocsPath);
+}
+
+run();

@@ -23,6 +23,9 @@ pub fn run_tape(
     let (shell, args) = detect_shell();
     let mut cmd = CommandBuilder::new(shell);
     cmd.args(args);
+    if let Ok(cur_dir) = std::env::current_dir() {
+        cmd.cwd(cur_dir);
+    }
 
     let mut child = pair.slave.spawn_command(cmd)?;
     drop(pair.slave);

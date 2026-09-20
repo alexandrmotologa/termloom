@@ -1,0 +1,58 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 879 600" width="100%" height="100%">
+  <style>
+    :root {
+      --bg: #1e1e2e;
+      --fg: #cdd6f4;
+      --cursor: #f5e0dc;
+    }
+    text {
+      font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 14px;
+      dominant-baseline: alphabetic;
+      white-space: pre;
+    }
+    .terminal-bg {
+      fill: var(--bg);
+    }
+    .frame { visibility: visible; }
+    @media (hover: hover) {
+      svg:hover .frame {
+        animation-play-state: paused !important;
+      }
+    }
+    .window-frame {
+      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.65));
+    }
+  </style>
+
+  <!-- Window Frame -->
+  <rect class="window-frame" width="879" height="600" rx="12" fill="#1e1e2e" stroke="#334155" stroke-width="1.5" />
+  <!-- Traffic Light Controls -->
+  <circle cx="20" cy="19" r="6" fill="#ef4444" />
+  <circle cx="38" cy="19" r="6" fill="#f59e0b" />
+  <circle cx="56" cy="19" r="6" fill="#10b981" />
+  <!-- Title -->
+  <text x="439.5" y="23" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" text-anchor="middle">termloom</text>
+  <line x1="0" y1="38" x2="879" y2="38" stroke="#334155" stroke-width="1" />
+  <!-- Frame 0 -->
+  <g class="frame frame_0">
+    <text x="16.0" y="69.5"><tspan fill="#cdd6f4"> </tspan><tspan fill="#f38ba8">M </tspan><tspan fill="#cdd6f4">assets/termloom_demo.svg                                                                         </tspan></text>
+    <text x="16.0" y="88.4"><tspan fill="#cdd6f4"> </tspan><tspan fill="#f38ba8">M </tspan><tspan fill="#cdd6f4">assets/termloom_logo.svg                                                                         </tspan></text>
+    <text x="16.0" y="107.3"><tspan fill="#cdd6f4"> </tspan><tspan fill="#f38ba8">M </tspan><tspan fill="#cdd6f4">src/exporters/svg/render.rs                                                                      </tspan></text>
+    <text x="16.0" y="126.2"><tspan fill="#cdd6f4"> </tspan><tspan fill="#f38ba8">M </tspan><tspan fill="#cdd6f4">src/pty/session.rs                                                                               </tspan></text>
+    <text x="16.0" y="145.1"><tspan fill="#cdd6f4"> </tspan><tspan fill="#f38ba8">M </tspan><tspan fill="#cdd6f4">src/tape/runner.rs                                                                               </tspan></text>
+    <text x="16.0" y="164.0"><tspan fill="#f38ba8">?? </tspan><tspan fill="#cdd6f4">assets/quick.tape                                                                                </tspan></text>
+    <text x="16.0" y="182.9"><tspan fill="#f38ba8">?? </tspan><tspan fill="#cdd6f4">assets/showcase.tape                                                                             </tspan></text>
+    <text x="16.0" y="201.8"><tspan fill="#f38ba8">?? </tspan><tspan fill="#cdd6f4">assets/termloom_cli.svg                                                                          </tspan></text>
+    <text x="16.0" y="220.7"><tspan fill="#f38ba8">?? </tspan><tspan fill="#cdd6f4">assets/termloom_logo.png                                                                         </tspan></text>
+    <text x="16.0" y="239.6"><tspan fill="#f38ba8">?? </tspan><tspan fill="#cdd6f4">assets/termloom_player.html                                                                      </tspan></text>
+    <text x="16.0" y="258.5"><tspan fill="#f38ba8">?? </tspan><tspan fill="#cdd6f4">assets/termloom_player.png                                                                       </tspan></text>
+    <text x="16.0" y="277.4"><tspan fill="#f38ba8">?? </tspan><tspan fill="#cdd6f4">assets/termloom_snapshot.png                                                                     </tspan></text>
+    <text x="16.0" y="296.3"><tspan fill="#f38ba8">?? </tspan><tspan fill="#cdd6f4">assets/termloom_snapshot.svg                                                                     </tspan></text>
+    <text x="16.0" y="315.2"><tspan fill="#f38ba8">?? </tspan><tspan fill="#cdd6f4">docs/images/logo.png                                                                             </tspan></text>
+    <text x="16.0" y="334.1"><tspan fill="#f38ba8">?? </tspan><tspan fill="#cdd6f4">docs/images/termloom_player.png                                                                  </tspan></text>
+    <text x="16.0" y="353.0"><tspan fill="#f38ba8">?? </tspan><tspan fill="#cdd6f4">docs/images/termloom_snapshot.png                                                                </tspan></text>
+    <text x="16.0" y="371.9"><tspan fill="#f38ba8">?? </tspan><tspan fill="#cdd6f4">scripts/                                                                                         </tspan></text>
+    <rect x="16.0" y="375.3" width="8.5" height="18.9" fill="var(--cursor)" opacity="0.75" />
+  </g>
+</svg>

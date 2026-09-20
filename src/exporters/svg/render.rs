@@ -96,9 +96,6 @@ impl<'a> SvgRenderer<'a> {
     .terminal-bg {{
       fill: var(--bg);
     }}
-    .frame {{
-      visibility: hidden;
-    }}
 "#,
             bg = Palette::hex(self.palette.bg),
             fg = Palette::hex(self.palette.fg),
@@ -106,6 +103,9 @@ impl<'a> SvgRenderer<'a> {
             font_family = self.font_family,
             font_size = self.font_size,
         ));
+
+        svg.push_str("    .frame { visibility: hidden; }\n");
+        svg.push_str("    .frame_0 { visibility: visible; }\n");
 
         if self.hover_pause {
             svg.push_str(
@@ -128,43 +128,47 @@ impl<'a> SvgRenderer<'a> {
         }
 
         // Generate keyframe animations for each frame
-        let mut cur_time = 0.0;
-        for (i, frame) in frames.iter().enumerate() {
-            let start_pct = (cur_time / total_duration) * 100.0;
-            let end_pct = ((cur_time + frame.duration) / total_duration) * 100.0;
-            cur_time += frame.duration;
+        if total_duration > 0.0 {
+            let mut cur_time = 0.0;
+            for (i, frame) in frames.iter().enumerate() {
+                let start_pct = (cur_time / total_duration) * 100.0;
+                let end_pct = ((cur_time + frame.duration) / total_duration) * 100.0;
+                cur_time += frame.duration;
 
-            let anim_name = format!("f_{}", i);
-            svg.push_str(&format!(
-                "    .frame_{i} {{ animation: {anim_name} {total_duration:.3}s infinite; }}\n",
-                i = i,
-                anim_name = anim_name,
-                total_duration = total_duration,
-            ));
+                let anim_name = format!("f_{}", i);
+                svg.push_str(&format!(
+                    "    .frame_{i} {{ animation: {anim_name} {total_duration:.3}s infinite; }}\n",
+                    i = i,
+                    anim_name = anim_name,
+                    total_duration = total_duration,
+                ));
 
-            svg.push_str(&format!("    @keyframes {} {{\n", anim_name));
-            if i == 0 {
-                svg.push_str(&format!(
-                    "      0.0% {{ visibility: visible; }}\n      {:.2}% {{ visibility: visible; }}\n      {:.2}% {{ visibility: hidden; }}\n      100.0% {{ visibility: hidden; }}\n",
-                    end_pct,
-                    (end_pct + 0.01).min(100.0)
-                ));
-            } else if i + 1 == frames.len() {
-                svg.push_str(&format!(
-                    "      0.0% {{ visibility: hidden; }}\n      {:.2}% {{ visibility: hidden; }}\n      {:.2}% {{ visibility: visible; }}\n      100.0% {{ visibility: visible; }}\n",
-                    (start_pct - 0.01).max(0.0),
-                    start_pct
-                ));
-            } else {
-                svg.push_str(&format!(
-                    "      0.0% {{ visibility: hidden; }}\n      {:.2}% {{ visibility: hidden; }}\n      {:.2}% {{ visibility: visible; }}\n      {:.2}% {{ visibility: visible; }}\n      {:.2}% {{ visibility: hidden; }}\n      100.0% {{ visibility: hidden; }}\n",
-                    (start_pct - 0.01).max(0.0),
-                    start_pct,
-                    end_pct,
-                    (end_pct + 0.01).min(100.0)
-                ));
+                svg.push_str(&format!("    @keyframes {} {{\n", anim_name));
+                if frames.len() == 1 {
+                    svg.push_str("      0.0%, 100.0% { visibility: visible; }\n");
+                } else if i == 0 {
+                    svg.push_str(&format!(
+                        "      0.0% {{ visibility: visible; }}\n      {:.2}% {{ visibility: visible; }}\n      {:.2}% {{ visibility: hidden; }}\n      100.0% {{ visibility: hidden; }}\n",
+                        end_pct,
+                        (end_pct + 0.01).min(100.0)
+                    ));
+                } else if i + 1 == frames.len() {
+                    svg.push_str(&format!(
+                        "      0.0% {{ visibility: hidden; }}\n      {:.2}% {{ visibility: hidden; }}\n      {:.2}% {{ visibility: visible; }}\n      100.0% {{ visibility: visible; }}\n",
+                        (start_pct - 0.01).max(0.0),
+                        start_pct
+                    ));
+                } else {
+                    svg.push_str(&format!(
+                        "      0.0% {{ visibility: hidden; }}\n      {:.2}% {{ visibility: hidden; }}\n      {:.2}% {{ visibility: visible; }}\n      {:.2}% {{ visibility: visible; }}\n      {:.2}% {{ visibility: hidden; }}\n      100.0% {{ visibility: hidden; }}\n",
+                        (start_pct - 0.01).max(0.0),
+                        start_pct,
+                        end_pct,
+                        (end_pct + 0.01).min(100.0)
+                    ));
+                }
+                svg.push_str("    }\n");
             }
-            svg.push_str("    }\n");
         }
 
         svg.push_str("  </style>\n\n");
