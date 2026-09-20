@@ -1,0 +1,11 @@
+/target
+**/*.rs.bk
+Cargo.lock
+*.svg
+*.html
+*.cast
+!assets/*.svg
+!assets/*.html
+!tests/fixtures/*
+.DS_Store
+Thumbs.db

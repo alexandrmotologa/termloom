@@ -1,0 +1,28 @@
+[package]
+name = "termloom"
+version = "0.1.0"
+edition = "2021"
+authors = ["Alexandr Motologa <alexandrmotologa@gmail.com>"]
+description = "Cross-platform terminal session recorder and vector animator written in Rust"
+readme = "README.md"
+license = "MIT OR Apache-2.0"
+repository = "https://github.com/alexandrmotologa/termloom"
+homepage = "https://github.com/alexandrmotologa/termloom"
+keywords = ["terminal", "recorder", "svg", "animation", "asciinema"]
+categories = ["command-line-utilities", "multimedia"]
+
+[dependencies]
+portable-pty = "0.8"
+vte = "0.14"
+clap = { version = "4.5", features = ["derive"] }
+unicode-width = "0.2"
+serde = { version = "1.0", features = ["derive"] }
+serde_json = "1.0"
+xxhash-rust = { version = "0.8", features = ["xxh64"] }
+crossterm = "0.28"
+chrono = "0.4"
+minijinja = "2.0"
+ctrlc = "3.4"
+
+[dev-dependencies]
+tempfile = "3.17"
