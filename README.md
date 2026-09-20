@@ -34,10 +34,14 @@ The recorder captures ANSI escape sequences, 24-bit TrueColor palettes, Nerd Fon
 
 * **Cross-platform PTY engine**: Uses native Windows ConPTY (`CreatePseudoConsole`) on Windows and POSIX `openpty` on Linux and macOS.
 * **Vector animated SVG**: Generates zero-JavaScript SVGs with pure CSS `@keyframes` that scale cleanly on high-density displays.
-* **Responsive color switching**: Embedded `@media (prefers-color-scheme: dark)` adapts SVG terminal colors to the viewer's system theme.
-* **Interactive HTML player**: Single-file HTML output with timeline scrubbing, playback rate toggles (0.5x, 1x, 1.5x, 2x), and a one-click command copy button.
+* **Scripted tape automation**: Executes `.tape` files headless (`termloom run`) for reproducible terminal demos in CI/CD without manual typing.
+* **Instant terminal snapshots**: Captures crisp single-frame SVG screenshots (`termloom snapshot`) directly from shell commands.
+* **Credential masking**: Built-in secret detection (`--mask-secrets`) automatically scrubs GitHub tokens, AWS keys, and Bearer tokens before writing to disk.
+* **Hover to pause**: Optional CSS pause rule (`--hover-pause`) stops animation playback on mouseover.
 * **Visual frame deduplication**: Computes 64-bit visual hashes using xxHash to drop unchanged frames and collapse idle intervals.
-* **Full terminal capability**: Supports 24-bit RGB colors, 256-color lookups, cursor positioning, font styles (bold, italic, underline, inverse), and OSC 8 hyperlinks.
+* **Responsive color switching**: Embedded `@media (prefers-color-scheme: dark)` adapts SVG terminal colors to the viewer's system theme.
+* **Interactive HTML player**: Single-file HTML output with timeline scrubbing, playback rate toggles (0.5x, 1x, 1.5x, 2x), and command copy button.
+* **Full terminal capability**: Supports 24-bit RGB colors, 256-color lookups, font styles, and OSC 8 hyperlinks.
 * **Asciinema v2 compatibility**: Records `.cast` files directly and converts existing `.cast` files to animated SVGs or HTML players.
 
 ## Comparison
@@ -128,6 +132,53 @@ termloom convert session.cast -o output.svg --theme dracula --window-style macos
 termloom convert session.cast -o player.html --theme nord
 ```
 
+### Scripted automation with tape files
+
+Run deterministic scripts without manual typing:
+
+```bash
+termloom run demo.tape -o animation.svg
+```
+
+Example tape script (`demo.tape`):
+
+```tape
+Output demo.svg
+Set Width 90
+Set Height 24
+Set Theme catppuccin-mocha
+Set TypingSpeed 40ms
+
+Type "cargo check"
+Enter
+Sleep 1.5s
+Type "echo 'Build clean!'"
+Enter
+Sleep 1s
+```
+
+### Capturing static SVG terminal snapshots
+
+Capture instant, high-resolution vector screenshots of command output:
+
+```bash
+termloom snapshot -c "git status" git_status.svg
+```
+
+### Secret redaction and security masking
+
+Scrub sensitive tokens, AWS keys, and passwords before exporting:
+
+```bash
+termloom record --mask-secrets --redact-regex "MY_TOKEN_[A-Za-z0-9]+" output.svg
+```
+
+### Polished presentation options
+
+```bash
+termloom record --hover-pause --shadow --trim-exit output.svg
+```
+
 ## Command options
 
 ### `termloom record [OPTIONS] [OUTPUT]`
@@ -144,6 +195,11 @@ termloom convert session.cast -o player.html --theme nord
 | `--title <TEXT>` | `termloom` | Window title displayed in the frame header |
 | `--font-family <FONTS>` | JetBrains Mono, ... | CSS font family sequence for SVG rendering |
 | `--font-size <PX>` | `14` | Font size in pixels |
+| `--mask-secrets` | `false` | Redact credentials, PATs, AWS keys, and Bearer tokens |
+| `--trim-exit` | `false` | Strip trailing `exit` command input and final redraw |
+| `--hover-pause` | `false` | Pause SVG animation when hovered with mouse |
+| `--shadow` | `false` | Apply subtle drop shadow to terminal window in SVG |
+| `--font-url <URL>` | none | Web font URL to import via `@import url(...)` in SVG |
 
 ### `termloom convert [OPTIONS] <INPUT> -o <OUTPUT>`
 

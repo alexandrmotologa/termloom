@@ -1,7 +1,8 @@
-//! Frame compression, xxHash deduplication, and idle time clamping.
+//! Frame compression, xxHash deduplication, secret redaction, and idle time clamping.
 
 use super::event::RawEvent;
-use super::frame::Frame;
+use super::frame::{compute_grid_hash, Frame};
+use super::redact::Redactor;
 use crate::emulator::handler::VteHandler;
 use vte::Parser;
 
@@ -9,6 +10,8 @@ pub struct Compressor {
     cols: usize,
     rows: usize,
     max_wait: f64,
+    redactor: Option<Redactor>,
+    trim_exit: bool,
 }
 
 impl Compressor {
@@ -17,7 +20,19 @@ impl Compressor {
             cols,
             rows,
             max_wait: max_wait.max(0.1),
+            redactor: None,
+            trim_exit: false,
         }
+    }
+
+    pub fn with_redactor(mut self, redactor: Option<Redactor>) -> Self {
+        self.redactor = redactor;
+        self
+    }
+
+    pub fn with_trim_exit(mut self, trim_exit: bool) -> Self {
+        self.trim_exit = trim_exit;
+        self
     }
 
     /// Process a stream of raw events into an optimized list of deduplicated frames.
@@ -60,7 +75,34 @@ impl Compressor {
             deduplicated.push(frame);
         }
 
-        // Step 3: Clamp idle intervals and trim leading latency
+        // Step 3: Trim trailing 'exit' or 'logout' commands if enabled
+        if self.trim_exit && deduplicated.len() > 1 {
+            while deduplicated.len() > 1 {
+                let last = deduplicated.last().unwrap();
+                let last_line = last_non_empty_line(&last.grid);
+                let trimmed = last_line.trim();
+
+                let is_exit = trimmed.ends_with("exit")
+                    || trimmed.ends_with("logout")
+                    || trimmed.ends_with("quit");
+
+                if is_exit {
+                    deduplicated.pop();
+                } else {
+                    break;
+                }
+            }
+        }
+
+        // Step 4: Redact secrets across frames if enabled
+        if let Some(ref redactor) = self.redactor {
+            for frame in &mut deduplicated {
+                redactor.redact_grid(&mut frame.grid);
+                frame.hash = compute_grid_hash(&frame.grid);
+            }
+        }
+
+        // Step 5: Clamp idle intervals and trim leading latency
         if let Some(first) = deduplicated.first_mut() {
             if first.duration > 0.5 {
                 first.duration = 0.5;
@@ -78,4 +120,14 @@ impl Compressor {
 
         deduplicated
     }
+}
+
+fn last_non_empty_line(grid: &crate::emulator::grid::ScreenGrid) -> String {
+    for row in grid.cells.iter().rev() {
+        let line: String = row.iter().map(|c| c.grapheme.as_str()).collect();
+        if !line.trim().is_empty() {
+            return line;
+        }
+    }
+    String::new()
 }

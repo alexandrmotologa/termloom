@@ -14,6 +14,9 @@ pub struct SvgRenderer<'a> {
     font_family: &'a str,
     font_size: u32,
     line_height: f64,
+    font_url: Option<&'a str>,
+    hover_pause: bool,
+    shadow: bool,
 }
 
 impl<'a> SvgRenderer<'a> {
@@ -32,7 +35,25 @@ impl<'a> SvgRenderer<'a> {
             font_family,
             font_size,
             line_height,
+            font_url: None,
+            hover_pause: true,
+            shadow: false,
         }
+    }
+
+    pub fn with_font_url(mut self, url: Option<&'a str>) -> Self {
+        self.font_url = url;
+        self
+    }
+
+    pub fn with_hover_pause(mut self, enabled: bool) -> Self {
+        self.hover_pause = enabled;
+        self
+    }
+
+    pub fn with_shadow(mut self, enabled: bool) -> Self {
+        self.shadow = enabled;
+        self
     }
 
     pub fn render(&self, frames: &[Frame], cols: usize, rows: usize) -> String {
@@ -57,6 +78,9 @@ impl<'a> SvgRenderer<'a> {
 
         // Style and CSS keyframes
         svg.push_str("  <style>\n");
+        if let Some(url) = self.font_url {
+            svg.push_str(&format!("    @import url('{}');\n", xml_escape(url)));
+        }
         svg.push_str(&format!(
             r#"    :root {{
       --bg: {bg};
@@ -82,6 +106,26 @@ impl<'a> SvgRenderer<'a> {
             font_family = self.font_family,
             font_size = self.font_size,
         ));
+
+        if self.hover_pause {
+            svg.push_str(
+                r#"    @media (hover: hover) {
+      svg:hover .frame {
+        animation-play-state: paused !important;
+      }
+    }
+"#,
+            );
+        }
+
+        if self.shadow {
+            svg.push_str(
+                r#"    .window-frame {
+      filter: drop-shadow(0 20px 30px rgba(0, 0, 0, 0.65));
+    }
+"#,
+            );
+        }
 
         // Generate keyframe animations for each frame
         let mut cur_time = 0.0;

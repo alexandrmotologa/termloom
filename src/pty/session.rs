@@ -6,7 +6,7 @@ use portable_pty::{native_pty_system, CommandBuilder, PtySize};
 use std::io::{Read, Write};
 use std::sync::atomic::{AtomicBool, Ordering};
 use std::sync::Arc;
-use std::time::Instant;
+use std::time::{Duration, Instant};
 
 pub fn detect_shell() -> (String, Vec<String>) {
     #[cfg(windows)]
@@ -144,10 +144,23 @@ pub fn run_session(
 
     let mut events = Vec::new();
     let start_time = Instant::now();
+    let mut last_title_update = Instant::now();
     let mut stdout = std::io::stdout();
 
     // Main event loop: captures PTY output and detects process termination
     loop {
+        if is_interactive && last_title_update.elapsed() >= Duration::from_secs(1) {
+            let elapsed_secs = start_time.elapsed().as_secs();
+            let title_str = format!(
+                "\x1b]0;🔴 [REC] TermLoom ({:02}:{:02}) - Type 'exit' to finish\x07",
+                elapsed_secs / 60,
+                elapsed_secs % 60
+            );
+            let _ = stdout.write_all(title_str.as_bytes());
+            let _ = stdout.flush();
+            last_title_update = Instant::now();
+        }
+
         match rx.recv_timeout(std::time::Duration::from_millis(30)) {
             Ok(chunk) => {
                 let elapsed = start_time.elapsed().as_secs_f64();
@@ -175,6 +188,12 @@ pub fn run_session(
                 break;
             }
         }
+    }
+
+    if is_interactive {
+        // Reset terminal window title
+        let _ = stdout.write_all(b"\x1b]0;\x07");
+        let _ = stdout.flush();
     }
 
     running.store(false, Ordering::Relaxed);

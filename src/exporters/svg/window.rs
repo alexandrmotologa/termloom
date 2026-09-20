@@ -63,7 +63,7 @@ impl Geometry {
             WindowStyle::Macos => {
                 format!(
                     r##"  <!-- Window Frame -->
-  <rect width="{width}" height="{height}" rx="{rx}" fill="{bg}" stroke="#334155" stroke-width="1.5" />
+  <rect class="window-frame" width="{width}" height="{height}" rx="{rx}" fill="{bg}" stroke="#334155" stroke-width="1.5" />
   <!-- Traffic Light Controls -->
   <circle cx="20" cy="19" r="6" fill="#ef4444" />
   <circle cx="38" cy="19" r="6" fill="#f59e0b" />
@@ -84,7 +84,7 @@ impl Geometry {
             WindowStyle::Squircle => {
                 format!(
                     r##"  <!-- Window Frame -->
-  <rect width="{width}" height="{height}" rx="{rx}" fill="{bg}" stroke="#334155" stroke-width="1" />
+  <rect class="window-frame" width="{width}" height="{height}" rx="{rx}" fill="{bg}" stroke="#334155" stroke-width="1" />
   <!-- Title -->
   <text x="{half_width}" y="20" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="11" font-weight="500" text-anchor="middle">{title}</text>
   <line x1="0" y1="{header_h}" x2="{width}" y2="{header_h}" stroke="#334155" stroke-width="1" />
@@ -100,7 +100,7 @@ impl Geometry {
             }
             WindowStyle::None => {
                 format!(
-                    r##"  <rect width="{width}" height="{height}" fill="{bg}" />
+                    r##"  <rect class="window-frame" width="{width}" height="{height}" fill="{bg}" />
 "##,
                     width = self.total_width,
                     height = self.total_height,

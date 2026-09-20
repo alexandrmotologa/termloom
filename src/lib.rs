@@ -5,4 +5,5 @@ pub mod emulator;
 pub mod exporters;
 pub mod pty;
 pub mod recorder;
+pub mod tape;
 pub mod themes;

@@ -23,6 +23,12 @@ pub enum Commands {
 
     /// Convert an existing Asciinema v2 (.cast) recording into SVG or HTML
     Convert(ConvertArgs),
+
+    /// Execute a scripted tape file to generate deterministic terminal recordings
+    Run(RunArgs),
+
+    /// Capture a single static terminal snapshot/screenshot with window chrome
+    Snapshot(SnapshotArgs),
 }
 
 #[derive(Args, Debug, Clone)]
@@ -70,6 +76,10 @@ pub struct RecordArgs {
     )]
     pub font_family: String,
 
+    /// Custom font URL to import in SVG (e.g. Google Fonts)
+    #[arg(long)]
+    pub font_url: Option<String>,
+
     /// Font size in pixels
     #[arg(long, default_value_t = 14)]
     pub font_size: u32,
@@ -77,6 +87,26 @@ pub struct RecordArgs {
     /// Line height multiplier for vertical alignment
     #[arg(long, default_value_t = 1.35)]
     pub line_height: f64,
+
+    /// Automatically mask secrets (tokens, AWS keys, passwords)
+    #[arg(long, default_value_t = false)]
+    pub mask_secrets: bool,
+
+    /// Custom regex patterns for secret redaction
+    #[arg(long = "redact-regex")]
+    pub redact_regex: Vec<String>,
+
+    /// Trim trailing exit or logout command from output animation
+    #[arg(long, default_value_t = true)]
+    pub trim_exit: bool,
+
+    /// Enable pause on mouse hover in SVG
+    #[arg(long, default_value_t = true)]
+    pub hover_pause: bool,
+
+    /// Add drop shadow to SVG window frame
+    #[arg(long, default_value_t = false)]
+    pub shadow: bool,
 }
 
 #[derive(Args, Debug, Clone)]
@@ -119,6 +149,10 @@ pub struct ConvertArgs {
     )]
     pub font_family: String,
 
+    /// Custom font URL to import in SVG
+    #[arg(long)]
+    pub font_url: Option<String>,
+
     /// Font size in pixels
     #[arg(long, default_value_t = 14)]
     pub font_size: u32,
@@ -126,6 +160,94 @@ pub struct ConvertArgs {
     /// Line height multiplier
     #[arg(long, default_value_t = 1.35)]
     pub line_height: f64,
+
+    /// Automatically mask secrets
+    #[arg(long, default_value_t = false)]
+    pub mask_secrets: bool,
+
+    /// Custom regex patterns for secret redaction
+    #[arg(long = "redact-regex")]
+    pub redact_regex: Vec<String>,
+
+    /// Enable pause on mouse hover in SVG
+    #[arg(long, default_value_t = true)]
+    pub hover_pause: bool,
+
+    /// Add drop shadow to SVG window frame
+    #[arg(long, default_value_t = false)]
+    pub shadow: bool,
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct RunArgs {
+    /// Path to scripted tape file (.tape)
+    pub tape: PathBuf,
+
+    /// Override output destination path defined in tape file
+    #[arg(short = 'o', long = "output")]
+    pub output: Option<PathBuf>,
+
+    /// Automatically mask secrets
+    #[arg(long, default_value_t = false)]
+    pub mask_secrets: bool,
+
+    /// Custom regex patterns for secret redaction
+    #[arg(long = "redact-regex")]
+    pub redact_regex: Vec<String>,
+}
+
+#[derive(Args, Debug, Clone)]
+pub struct SnapshotArgs {
+    /// Output file destination path (.svg)
+    #[arg(default_value = "snapshot.svg")]
+    pub output: PathBuf,
+
+    /// Specific command to execute for the snapshot
+    #[arg(short = 'c', long = "command")]
+    pub command: Option<String>,
+
+    /// Terminal column width
+    #[arg(long, default_value_t = 100)]
+    pub cols: u16,
+
+    /// Terminal row count
+    #[arg(long, default_value_t = 28)]
+    pub rows: u16,
+
+    /// Color theme name
+    #[arg(long, default_value = "catppuccin-mocha")]
+    pub theme: String,
+
+    /// Window frame style
+    #[arg(long, value_enum, default_value_t = WindowStyle::Macos)]
+    pub window_style: WindowStyle,
+
+    /// Window title displayed in the frame header
+    #[arg(long, default_value = "termloom")]
+    pub title: String,
+
+    /// CSS font family fallback sequence
+    #[arg(
+        long,
+        default_value = "'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace"
+    )]
+    pub font_family: String,
+
+    /// Custom font URL to import in SVG
+    #[arg(long)]
+    pub font_url: Option<String>,
+
+    /// Font size in pixels
+    #[arg(long, default_value_t = 14)]
+    pub font_size: u32,
+
+    /// Line height multiplier
+    #[arg(long, default_value_t = 1.35)]
+    pub line_height: f64,
+
+    /// Add drop shadow to window frame
+    #[arg(long, default_value_t = true)]
+    pub shadow: bool,
 }
 
 #[derive(ValueEnum, Debug, Clone, Copy, PartialEq, Eq)]

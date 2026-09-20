@@ -241,6 +241,24 @@ termloom/
    * Add prompt parser for automatic "Copy Command" button generation.
 2. Add CLI progress feedback, recording stats (frames recorded, compression ratio, file size), and built-in themes.
 
+### Phase 6: Advanced Automation, Security & Visual Enhancements (Completed)
+1. **Scripted Automation Tape Runner (`termloom run <file.tape>`)**:
+   * Lexer and AST parser for `.tape` commands (`Output`, `Set`, `Type`, `Enter`, `Space`, `Backspace`, `Sleep`, `Ctrl+C/D/L`).
+   * Headless PTY execution driving shell inputs deterministically for CI/CD workflows.
+2. **Credential & Secret Redaction Filter (`--mask-secrets`, `--redact-regex`)**:
+   * Built-in patterns for GitHub PATs, AWS keys, Slack tokens, Bearer authorization tokens, and private keys.
+   * In-place `ScreenGrid` cell character masking (`*`) preserving exact column geometry and color attributes.
+3. **Instant Terminal Snapshots (`termloom snapshot`)**:
+   * Single-frame vector SVG screenshot generation directly from commands (`-c`) or static terminal grids.
+4. **CSS Hover-to-Pause & Custom Typography (`--hover-pause`, `--font-url`, `--shadow`)**:
+   * `@media (hover: hover) { svg:hover .frame { animation-play-state: paused !important; } }`.
+   * Dynamic external web font stylesheet injection via `@import url(...)`.
+   * High-fidelity window drop-shadow filter styling.
+5. **Session Feedback & Exit Trimming**:
+   * Live window title recording status (`🔴 [REC] TermLoom (MM:SS)`).
+   * Trailing `exit` command input stripping (`--trim-exit`).
+   * Performance and compression report summary table.
+
 ---
 
 ## 8. Verification & Test Plan
