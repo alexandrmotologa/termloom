@@ -17,10 +17,9 @@ def main():
     images = []
     for f in frame_files:
         im = Image.open(f).convert("RGBA")
-        # Create a dark background image and composite to eliminate any transparency artifacts
-        bg = Image.new("RGB", im.size, (24, 24, 37))  # Catppuccin mocha base
+        # Solid dark background matching Catppuccin mocha
+        bg = Image.new("RGB", im.size, (30, 30, 46))
         bg.paste(im, mask=im.split()[3])
-        # Quantize to 128 colors for compact, smooth GIF
         p_im = bg.quantize(colors=128, method=Image.Quantize.MEDIANCUT, dither=Image.Dither.FLOYDSTEINBERG)
         images.append(p_im)
 
@@ -32,8 +31,8 @@ def main():
     os.makedirs(os.path.dirname(assets_gif), exist_ok=True)
     os.makedirs(os.path.dirname(docs_gif), exist_ok=True)
 
-    # Frame duration: 150ms per frame, last frame 1500ms
-    durations = [140] * (len(images) - 1) + [1500]
+    # Frame duration: 160ms per frame, last frame 2500ms to read finished screen
+    durations = [160] * (len(images) - 1) + [2500]
 
     images[0].save(
         assets_gif,

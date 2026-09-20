@@ -23,8 +23,8 @@ async function main() {
   const maxFrame = Math.max(...frameIndices);
   console.log(`Found ${matches.length} frames (max index: ${maxFrame}) in termloom_demo.svg`);
 
-  // Sample 36 evenly spaced frames for a smooth 10fps loop
-  const totalSamples = 36;
+  // Sample 45 evenly spaced frames across the animation
+  const totalSamples = 45;
   const sampled = [];
   for (let i = 0; i < totalSamples; i++) {
     const idx = Math.min(maxFrame, Math.floor((i / (totalSamples - 1)) * maxFrame));
@@ -34,19 +34,42 @@ async function main() {
   const framesDir = path.join(__dirname, '..', 'temp_frames');
   fs.mkdirSync(framesDir, { recursive: true });
 
-  console.log(`Rendering ${totalSamples} frames via Resvg at 850px width...`);
+  const fontFiles = [
+    'C:/Windows/Fonts/consola.ttf',
+    'C:/Windows/Fonts/consolab.ttf',
+    'C:/Windows/Fonts/consolai.ttf',
+    'C:/Windows/Fonts/consolaz.ttf'
+  ].filter(fs.existsSync);
+
+  console.log(`Rendering ${totalSamples} frames via Resvg with Consolas TrueColor fonts...`);
   for (let i = 0; i < sampled.length; i++) {
     const fIdx = sampled[i];
-    // Override CSS so only frame fIdx is visible
-    const injectedCss = `
-    .frame { visibility: hidden !important; animation: none !important; }
-    .frame_${fIdx} { visibility: visible !important; animation: none !important; }
-  </style>`;
+    // Replace complex keyframe CSS with lightweight single-frame display rule
+    const strippedSvg = svgContent.replace(/<style>[\s\S]*?<\/style>/, `
+    <style>
+      :root {
+        --bg: #1e1e2e;
+        --fg: #cdd6f4;
+        --cursor: #f5e0dc;
+      }
+      text {
+        font-family: 'Consolas', monospace;
+        font-size: 15px;
+        dominant-baseline: alphabetic;
+        white-space: pre;
+      }
+      .terminal-bg { fill: var(--bg); }
+      .frame { display: none; }
+      .frame_${fIdx} { display: inline; }
+    </style>`);
 
-    const frameSvg = svgContent.replace('</style>', injectedCss);
-    const resvg = new Resvg(frameSvg, {
+    const resvg = new Resvg(strippedSvg, {
       fitTo: { mode: 'width', value: 850 },
-      font: { loadSystemFonts: false }
+      font: {
+        fontFiles,
+        loadSystemFonts: false,
+        defaultFontFamily: 'Consolas'
+      }
     });
 
     const pngBuffer = resvg.render().asPng();
@@ -54,12 +77,12 @@ async function main() {
     fs.writeFileSync(framePath, pngBuffer);
   }
 
-  console.log('✓ All frames rendered. Calling Python script to assemble GIF with Pillow...');
+  console.log('✓ All frames rendered cleanly. Assembling high-fidelity animated GIF...');
   execSync('py -3.11 scripts/assemble_gif.py', { cwd: path.join(__dirname, '..'), stdio: 'inherit' });
 
   // Clean up framesDir
   fs.rmSync(framesDir, { recursive: true, force: true });
-  console.log('✓ Temporary frames cleaned up.');
+  console.log('✓ Temporary frame directory cleaned up.');
 }
 
 main().catch(err => {
