@@ -11,6 +11,14 @@ homepage = "https://github.com/alexandrmotologa/termloom"
 keywords = ["terminal", "recorder", "svg", "animation", "asciinema"]
 categories = ["command-line-utilities", "multimedia"]
 
+[lib]
+name = "termloom"
+path = "src/lib.rs"
+
+[[bin]]
+name = "termloom"
+path = "src/main.rs"
+
 [dependencies]
 portable-pty = "0.8"
 vte = "0.14"

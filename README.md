@@ -16,6 +16,10 @@
   <img src="https://img.shields.io/badge/platform-windows%20%7C%20macos%20%7C%20linux-blue" alt="Platforms">
 </p>
 
+<p align="center">
+  <img src="assets/termloom_demo.svg" alt="TermLoom Animated Demo" width="880" />
+</p>
+
 ---
 
 ## Overview

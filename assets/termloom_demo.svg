@@ -1,0 +1,201 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 879 600" width="100%" height="100%">
+  <style>
+    :root {
+      --bg: #1e1e2e;
+      --fg: #cdd6f4;
+      --cursor: #f5e0dc;
+    }
+    text {
+      font-family: 'JetBrains Mono', 'Fira Code', 'Cascadia Code', 'SF Mono', Menlo, Consolas, monospace;
+      font-size: 14px;
+      dominant-baseline: alphabetic;
+      white-space: pre;
+    }
+    .terminal-bg {
+      fill: var(--bg);
+    }
+    .frame {
+      visibility: hidden;
+    }
+    .frame_0 { animation: f_0 3.955s infinite; }
+    @keyframes f_0 {
+      0.0% { visibility: visible; }
+      5.09% { visibility: visible; }
+      5.10% { visibility: hidden; }
+      100.0% { visibility: hidden; }
+    }
+    .frame_1 { animation: f_1 3.955s infinite; }
+    @keyframes f_1 {
+      0.0% { visibility: hidden; }
+      5.08% { visibility: hidden; }
+      5.09% { visibility: visible; }
+      5.44% { visibility: visible; }
+      5.45% { visibility: hidden; }
+      100.0% { visibility: hidden; }
+    }
+    .frame_2 { animation: f_2 3.955s infinite; }
+    @keyframes f_2 {
+      0.0% { visibility: hidden; }
+      5.43% { visibility: hidden; }
+      5.44% { visibility: visible; }
+      28.60% { visibility: visible; }
+      28.61% { visibility: hidden; }
+      100.0% { visibility: hidden; }
+    }
+    .frame_3 { animation: f_3 3.955s infinite; }
+    @keyframes f_3 {
+      0.0% { visibility: hidden; }
+      28.59% { visibility: hidden; }
+      28.60% { visibility: visible; }
+      29.11% { visibility: visible; }
+      29.12% { visibility: hidden; }
+      100.0% { visibility: hidden; }
+    }
+    .frame_4 { animation: f_4 3.955s infinite; }
+    @keyframes f_4 {
+      0.0% { visibility: hidden; }
+      29.10% { visibility: hidden; }
+      29.11% { visibility: visible; }
+      51.04% { visibility: visible; }
+      51.05% { visibility: hidden; }
+      100.0% { visibility: hidden; }
+    }
+    .frame_5 { animation: f_5 3.955s infinite; }
+    @keyframes f_5 {
+      0.0% { visibility: hidden; }
+      51.03% { visibility: hidden; }
+      51.04% { visibility: visible; }
+      51.47% { visibility: visible; }
+      51.48% { visibility: hidden; }
+      100.0% { visibility: hidden; }
+    }
+    .frame_6 { animation: f_6 3.955s infinite; }
+    @keyframes f_6 {
+      0.0% { visibility: hidden; }
+      51.46% { visibility: hidden; }
+      51.47% { visibility: visible; }
+      72.12% { visibility: visible; }
+      72.13% { visibility: hidden; }
+      100.0% { visibility: hidden; }
+    }
+    .frame_7 { animation: f_7 3.955s infinite; }
+    @keyframes f_7 {
+      0.0% { visibility: hidden; }
+      72.11% { visibility: hidden; }
+      72.12% { visibility: visible; }
+      72.37% { visibility: visible; }
+      72.38% { visibility: hidden; }
+      100.0% { visibility: hidden; }
+    }
+    .frame_8 { animation: f_8 3.955s infinite; }
+    @keyframes f_8 {
+      0.0% { visibility: hidden; }
+      72.36% { visibility: hidden; }
+      72.37% { visibility: visible; }
+      74.46% { visibility: visible; }
+      74.47% { visibility: hidden; }
+      100.0% { visibility: hidden; }
+    }
+    .frame_9 { animation: f_9 3.955s infinite; }
+    @keyframes f_9 {
+      0.0% { visibility: hidden; }
+      74.45% { visibility: hidden; }
+      74.46% { visibility: visible; }
+      74.72% { visibility: visible; }
+      74.73% { visibility: hidden; }
+      100.0% { visibility: hidden; }
+    }
+    .frame_10 { animation: f_10 3.955s infinite; }
+    @keyframes f_10 {
+      0.0% { visibility: hidden; }
+      74.71% { visibility: hidden; }
+      74.72% { visibility: visible; }
+      100.0% { visibility: visible; }
+    }
+  </style>
+
+  <!-- Window Frame -->
+  <rect width="879" height="600" rx="12" fill="#1e1e2e" stroke="#334155" stroke-width="1.5" />
+  <!-- Traffic Light Controls -->
+  <circle cx="20" cy="19" r="6" fill="#ef4444" />
+  <circle cx="38" cy="19" r="6" fill="#f59e0b" />
+  <circle cx="56" cy="19" r="6" fill="#10b981" />
+  <!-- Title -->
+  <text x="439.5" y="23" fill="#94a3b8" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" font-size="12" font-weight="600" text-anchor="middle">TermLoom Demo - Test Suite</text>
+  <line x1="0" y1="38" x2="879" y2="38" stroke="#334155" stroke-width="1" />
+  <!-- Frame 0 -->
+  <g class="frame frame_0">
+    <rect x="16.0" y="54.0" width="8.5" height="18.9" fill="var(--cursor)" opacity="0.75" />
+  </g>
+  <!-- Frame 1 -->
+  <g class="frame frame_1">
+    <text x="16.0" y="69.5"><tspan fill="#a6e3a1" font-weight="bold">   Compiling</tspan><tspan fill="#cdd6f4"> termloom v0.1.0 (B:\workgit\termloom)                                                  </tspan></text>
+    <rect x="16.0" y="72.9" width="8.5" height="18.9" fill="var(--cursor)" opacity="0.75" />
+  </g>
+  <!-- Frame 2 -->
+  <g class="frame frame_2">
+    <text x="16.0" y="69.5"><tspan fill="#a6e3a1" font-weight="bold">   Compiling</tspan><tspan fill="#cdd6f4"> termloom v0.1.0 (B:\workgit\termloom)                                                  </tspan></text>
+    <text x="16.0" y="88.4"><tspan fill="#94e2d5" font-weight="bold">    Building</tspan><tspan fill="#cdd6f4"> [=======================&gt; ] 105/108: termloom                                          </tspan></text>
+    <rect x="16.0" y="72.9" width="8.5" height="18.9" fill="var(--cursor)" opacity="0.75" />
+  </g>
+  <!-- Frame 3 -->
+  <g class="frame frame_3">
+    <text x="16.0" y="69.5"><tspan fill="#a6e3a1" font-weight="bold">   Compiling</tspan><tspan fill="#cdd6f4"> termloom v0.1.0 (B:\workgit\termloom)                                                  </tspan></text>
+    <text x="16.0" y="88.4"><tspan fill="#94e2d5" font-weight="bold">    Building</tspan><tspan fill="#cdd6f4"> [=======================&gt; ] 105/108: termloom                                          </tspan></text>
+    <rect x="126.1" y="72.9" width="8.5" height="18.9" fill="var(--cursor)" opacity="0.75" />
+  </g>
+  <!-- Frame 4 -->
+  <g class="frame frame_4">
+    <text x="16.0" y="69.5"><tspan fill="#a6e3a1" font-weight="bold">   Compiling</tspan><tspan fill="#cdd6f4"> termloom v0.1.0 (B:\workgit\termloom)                                                  </tspan></text>
+    <text x="16.0" y="88.4"><tspan fill="#94e2d5" font-weight="bold">    Building</tspan><tspan fill="#cdd6f4"> [=======================&gt; ] 106/108: vte_ansi_test(test), termloom(bin)                </tspan></text>
+    <rect x="16.0" y="72.9" width="8.5" height="18.9" fill="var(--cursor)" opacity="0.75" />
+  </g>
+  <!-- Frame 5 -->
+  <g class="frame frame_5">
+    <text x="16.0" y="69.5"><tspan fill="#a6e3a1" font-weight="bold">   Compiling</tspan><tspan fill="#cdd6f4"> termloom v0.1.0 (B:\workgit\termloom)                                                  </tspan></text>
+    <text x="16.0" y="88.4"><tspan fill="#94e2d5" font-weight="bold">    Building</tspan><tspan fill="#cdd6f4"> [=======================&gt; ] 106/108: vte_ansi_test(test), termloom(bin)                </tspan></text>
+    <rect x="126.1" y="72.9" width="8.5" height="18.9" fill="var(--cursor)" opacity="0.75" />
+  </g>
+  <!-- Frame 6 -->
+  <g class="frame frame_6">
+    <text x="16.0" y="69.5"><tspan fill="#a6e3a1" font-weight="bold">   Compiling</tspan><tspan fill="#cdd6f4"> termloom v0.1.0 (B:\workgit\termloom)                                                  </tspan></text>
+    <text x="16.0" y="88.4"><tspan fill="#94e2d5" font-weight="bold">    Building</tspan><tspan fill="#cdd6f4"> [=======================&gt; ] 107/108: termloom(bin)(test), termloom(bin)                </tspan></text>
+    <rect x="16.0" y="72.9" width="8.5" height="18.9" fill="var(--cursor)" opacity="0.75" />
+  </g>
+  <!-- Frame 7 -->
+  <g class="frame frame_7">
+    <text x="16.0" y="69.5"><tspan fill="#a6e3a1" font-weight="bold">   Compiling</tspan><tspan fill="#cdd6f4"> termloom v0.1.0 (B:\workgit\termloom)                                                  </tspan></text>
+    <text x="16.0" y="88.4"><tspan fill="#94e2d5" font-weight="bold">    Building</tspan><tspan fill="#cdd6f4"> [=======================&gt; ] 107/108: termloom(bin)(test), termloom(bin)                </tspan></text>
+    <rect x="854.5" y="72.9" width="8.5" height="18.9" fill="var(--cursor)" opacity="0.75" />
+  </g>
+  <!-- Frame 8 -->
+  <g class="frame frame_8">
+    <text x="16.0" y="69.5"><tspan fill="#a6e3a1" font-weight="bold">   Compiling</tspan><tspan fill="#cdd6f4"> termloom v0.1.0 (B:\workgit\termloom)                                                  </tspan></text>
+    <text x="16.0" y="88.4"><tspan fill="#a6e3a1" font-weight="bold">    Finished</tspan><tspan fill="#cdd6f4"> `test` profile [unoptimized + debuginfo] target(s) in 2.79sermloom(bin)                </tspan></text>
+    <text x="16.0" y="107.3"><tspan fill="#a6e3a1" font-weight="bold">     Running</tspan><tspan fill="#cdd6f4"> tests\vte_ansi_test.rs (target\debug\deps\vte_ansi_test-cfdbbc5cdbd9e199.exe)          </tspan></text>
+    <rect x="16.0" y="110.7" width="8.5" height="18.9" fill="var(--cursor)" opacity="0.75" />
+  </g>
+  <!-- Frame 9 -->
+  <g class="frame frame_9">
+    <text x="16.0" y="69.5"><tspan fill="#a6e3a1" font-weight="bold">   Compiling</tspan><tspan fill="#cdd6f4"> termloom v0.1.0 (B:\workgit\termloom)                                                  </tspan></text>
+    <text x="16.0" y="88.4"><tspan fill="#a6e3a1" font-weight="bold">    Finished</tspan><tspan fill="#cdd6f4"> `test` profile [unoptimized + debuginfo] target(s) in 2.79sermloom(bin)                </tspan></text>
+    <text x="16.0" y="107.3"><tspan fill="#a6e3a1" font-weight="bold">     Running</tspan><tspan fill="#cdd6f4"> tests\vte_ansi_test.rs (target\debug\deps\vte_ansi_test-cfdbbc5cdbd9e199.exe)          </tspan></text>
+    <text x="16.0" y="145.1"><tspan fill="#cdd6f4">running 6 tests                                                                                     </tspan></text>
+    <rect x="16.0" y="148.5" width="8.5" height="18.9" fill="var(--cursor)" opacity="0.75" />
+  </g>
+  <!-- Frame 10 -->
+  <g class="frame frame_10">
+    <text x="16.0" y="69.5"><tspan fill="#a6e3a1" font-weight="bold">   Compiling</tspan><tspan fill="#cdd6f4"> termloom v0.1.0 (B:\workgit\termloom)                                                  </tspan></text>
+    <text x="16.0" y="88.4"><tspan fill="#a6e3a1" font-weight="bold">    Finished</tspan><tspan fill="#cdd6f4"> `test` profile [unoptimized + debuginfo] target(s) in 2.79sermloom(bin)                </tspan></text>
+    <text x="16.0" y="107.3"><tspan fill="#a6e3a1" font-weight="bold">     Running</tspan><tspan fill="#cdd6f4"> tests\vte_ansi_test.rs (target\debug\deps\vte_ansi_test-cfdbbc5cdbd9e199.exe)          </tspan></text>
+    <text x="16.0" y="145.1"><tspan fill="#cdd6f4">running 6 tests                                                                                     </tspan></text>
+    <text x="16.0" y="164.0"><tspan fill="#cdd6f4">test test_unicode_wide_character_handling ... </tspan><tspan fill="#a6e3a1">ok</tspan></text>
+    <text x="16.0" y="182.9"><tspan fill="#cdd6f4">test test_osc8_hyperlink_parsing ... </tspan><tspan fill="#a6e3a1">ok</tspan></text>
+    <text x="16.0" y="201.8"><tspan fill="#cdd6f4">test test_cursor_movement_and_clear ... </tspan><tspan fill="#a6e3a1">ok</tspan></text>
+    <text x="16.0" y="220.7"><tspan fill="#cdd6f4">test test_truecolor_sgr_parsing ... </tspan><tspan fill="#a6e3a1">ok</tspan></text>
+    <text x="16.0" y="239.6"><tspan fill="#cdd6f4">test test_ansi_256_color_parsing ... </tspan><tspan fill="#a6e3a1">ok</tspan></text>
+    <text x="16.0" y="258.5"><tspan fill="#cdd6f4">test test_sgr_styles_bold_italic_underline ... </tspan><tspan fill="#a6e3a1">ok</tspan></text>
+    <text x="16.0" y="296.3"><tspan fill="#cdd6f4">test result: </tspan><tspan fill="#a6e3a1">ok</tspan><tspan fill="#cdd6f4">. 6 passed; 0 failed; 0 ignored; 0 measured; 0 filtered out; finished in 0.00s       </tspan></text>
+    <rect x="16.0" y="318.6" width="8.5" height="18.9" fill="var(--cursor)" opacity="0.75" />
+  </g>
+</svg>
